@@ -1,0 +1,361 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f8fafc;
+}
+
+.flow-arrow {
+  font-size: 2.5rem;
+  line-height: 1;
+  color: #e78341;
+  transform: rotate(90deg);
+}
+
+@media (min-width: 768px) {
+  .flow-arrow {
+    transform: rotate(0deg);
+  }
+}
+
+.step-item {
+  position: relative;
+}
+
+.step-item.active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1rem;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #cbd5e1;
+  z-index: 10;
+}
+
+.step-item.active::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.85rem;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #ffffff;
+  z-index: 11;
+}
+
+.icon-container {
+  width: 100%;
+  max-width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #f1f5f9;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.icon-svg {
+  width: 100%;
+  height: 100%;
+  color: #295069;
+}
+
+.legislation-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1rem;
+  color: #e78341;
+}
+
+.classification-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  color: #295069;
+  min-height: 220px;
+}
+
+.epi-icon {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 1rem;
+  color: #295069;
+}
+
+/* --- Unified Card Zoom Effect --- */
+#legislacao .grid > div,
+#perigos .grid > div,
+#protecao .grid > div,
+#classificacao .grid > div,
+#graficos .grid > div,
+#destinacao .grid > div {
+  transition: transform 0.3s ease-in-out;
+}
+
+#legislacao .grid > div:hover,
+#perigos .grid > div:hover,
+#protecao .grid > div:hover,
+#classificacao .grid > div:hover,
+#graficos .grid > div:hover,
+#destinacao .grid > div:hover {
+  transform: scale(1.05);
+}
+
+#step-content-container-desktop img,
+.step-content-mobile img {
+  transition: transform 0.3s ease-in-out;
+}
+
+#step-content-container-desktop img:hover,
+.step-content-mobile img:hover {
+  transform: scale(1.1);
+}
+
+#legislacao,
+#perigos,
+#protecao,
+#classificacao,
+#ciclo-de-vida,
+#destinacao {
+  scroll-margin-top: 150px;
+}
+
+/* Header Link Hover Effect */
+.nav-link {
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Light mode */
+.nav-link {
+  color: #295069;
+}
+.nav-link:hover {
+  color: #82b158;
+  opacity: 0.75;
+}
+
+/* Dark mode */
+.dark .nav-link {
+  color: white;
+}
+.dark .nav-link:hover {
+  color: #82b158;
+  opacity: 0.75;
+}
+
+/* Dark Mode Styles */
+.dark body {
+  background-color: #1a202c;
+  color: #cbd5e0;
+}
+
+.dark nav {
+  background-color: #2d3748;
+}
+
+.dark .bg-white {
+  background-color: #2d3748;
+}
+
+.dark .text-gray-800 {
+  color: #cbd5e0;
+}
+
+.dark .text-gray-500 {
+  color: #a0aec0;
+}
+
+.dark .border-slate-200 {
+  border-color: #4a5568;
+}
+
+.dark .bg-gray-50 {
+  background-color: #1a202c;
+}
+
+.dark .step-item {
+  background-color: #2d3748;
+  border-color: #4a5568;
+}
+
+.dark .step-item:hover {
+  background-color: #4a5568;
+}
+
+.dark #step-content-container {
+  background-color: #2d3748;
+  border-color: #4a5568;
+}
+
+.dark .text-\[\#e78341\] {
+  color: #e78341 !important;
+}
+
+.dark .text-\[\#FF6B6B\] {
+  color: #f56565 !important;
+}
+
+.dark .border-\[\#e78341\] {
+  border-color: #e78341 !important;
+}
+
+.dark .shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark .text-white {
+  color: #fff;
+}
+
+.dark .bg-\[\#FF6B6B\] {
+  background-color: #ee8f8f !important;
+}
+
+.dark .bg-\[\#82b158\] {
+  background-color: #5fae72 !important;
+}
+
+#step-content-container img {
+  transform: translateY(-10px); /* Adjust as needed */
+}
+
+.link-fine-tune {
+  position: relative;
+  top: -3px; /* Adjust as needed */
+}
+
+/* Mobile Navigation Overlay */
+#mobile-nav {
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(100%); /* Hidden by default */
+  display: none; /* Explicitly hide by default */
+  width: 50%; /* Ensure it takes full width */
+  height: 50%; /* Ensure it takes full height */
+  top: 0;
+  left: 50%;
+}
+
+#mobile-nav.active {
+  transform: translateX(0); /* Show when active */
+  display: flex; /* Show when active */
+}
+
+/* Dark mode for mobile nav */
+.dark #mobile-nav {
+  background-color: #1a202c; /* Dark background for overlay */
+}
+
+/* Adjust nav links for mobile menu */
+#mobile-nav ul li a {
+  color: #295069; /* Default link color */
+}
+
+.dark #mobile-nav ul li a {
+  color: white; /* Dark mode link color */
+}
+
+#mobile-nav ul li a:hover {
+  color: #82b158; /* Hover color */
+  opacity: 0.75;
+}
+
+#mobile-nav #theme-toggle-mobile {
+  /* Ensure theme toggle is visible and styled */
+  display: flex; /* Override hidden if necessary */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark mode for FAQ answer text */
+.dark #faq p.text-gray-700 {
+  color: white !important;
+}
+
+@media (min-width: 1024px) {
+  .custom-center-container {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.dark .hover\:bg-\[\#e78341\]:hover {
+  background-color: #e78341 !important;
+}
+
+/* Force color for specific paragraph in dark mode */
+.dark [data-i18n="destinacao_p"] {
+  color: #e78341 !important;
+}
+
+/* Force hamburger icon color in dark mode */
+.dark #hamburger-button svg {
+  color: #ccd6df;
+}
+
+.dark #contato h2 {
+  color: #ccd6df !important;
+}
+
+.dark p.text-gray-600 {
+  color: #ccd6df !important;
+}
+
+.dark #contato {
+  background-color: #2d3748;
+}
+/* Dropdown styles */
+.dropdown-menu {
+  display: none; /* Hide dropdowns by default */
+  position: absolute; /* Position dropdown relative to parent */
+  background-color: #f9f9f9; /* Example background */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown.active .dropdown-menu {
+  display: block; /* Show dropdown when parent has 'active' class */
+}
+
+/* Mobile navigation styles */
+@media (max-width: 768px) {
+  #nav-list {
+    display: none; /* Hide main nav list on mobile by default */
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 60px; /* Adjust based on your header height */
+    left: 0;
+    background-color: #f8fafc; /* Same as body background */
+    z-index: 1000;
+  }
+
+  #nav-list.active {
+    display: flex; /* Show main nav list when 'active' */
+  }
+
+  .dropdown-menu {
+    position: static; /* Make dropdowns static in mobile to flow with content */
+    box-shadow: none;
+    background-color: transparent;
+  }
+}

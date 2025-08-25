@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title data-i18n="meta_title">Infográfico: Guia de Gerenciamento de Resíduos de Epóxi (Atualizado NBR
+      10.004:2024)</title>
+
+    <!-- Descrição e compartilhamento -->
+
+    <meta
+      name="description" data-i18n="meta_description_short"
+      content="Entenda por que o pó do lixamento de epóxi e sobras de tintas exigem descarte especializado segundo a ABNT NBR 10.004:2024 e como fazer corretamente."
+    />
+
+    <meta
+      property="og:title" data-i18n="meta_og_title"
+      content="Guia: Resíduos de Epóxi — ABNT NBR 10.004:2024"
+    />
+
+    <meta
+      property="og:description" data-i18n="meta_og_description"
+      content="Classificação, EPIs, ciclo de vida e destinação final de resíduos perigosos de epóxi conforme a legislação brasileira."
+    />
+
+    <meta property="og:type" content="website" />
+
+    <!-- Tailwind e Chart.js via CDN (com defer para não bloquear renderização) -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+
+    <!-- Fontes -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body
+    class="bg-gray-50 text-gray-800 font-sans"
+    style="font-family: 'Inter', sans-serif"
+  >
+    <nav
+      class="sticky top-0 w-full bg-white shadow-md z-50 py-4 px-4 md:px-32"
+    >
+      <div class="container mx-auto flex items-center justify-between">
+        <a href="/">
+          <img
+            id="logo-img"
+            src="assets/Logo_EHS_Prevention.png"
+            alt="Logo do Site"
+            class="w-40 md:w-64" style="height: auto"
+          />
+        </a>
+        <!-- Hamburger Button for Mobile -->
+        <div class="md:hidden">
+          <button id="hamburger-button" class="text-[#295069] dark:text-[#ccd6df] focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+        <ul class="hidden md:flex md:flex-row gap-2 md:gap-4 text-center md:flex-wrap">
+          <li>
+            <a href="#legislacao" class="nav-link" data-i18n="nav_legislacao">Legislação</a>
+          </li>
+          <li>
+            <a href="#perigos" class="nav-link" data-i18n="nav_perigos">Os Perigos</a>
+          </li>
+          <li>
+            <a href="#protecao" class="nav-link" data-i18n="nav_protecao">Proteção / EPIs</a>
+          </li>
+          <li>
+            <a href="#classificacao" class="nav-link" data-i18n="nav_classificacao">Classificação</a>
+          </li>
+          <li>
+            <a href="#ciclo-de-vida" class="nav-link" data-i18n="nav_ciclo_de_vida">Ciclo de Vida</a>
+          </li>
+          <li>
+            <a href="#destinacao" class="nav-link" data-i18n="nav_destinacao">Destinação Final</a>
+          </li>
+          <li>
+            <a href="#graficos" class="nav-link" data-i18n="nav_graficos">Gráficos</a>
+          </li>
+          <li>
+            <a href="#faq" class="nav-link" data-i18n="nav_faq">FAQ</a>
+          </li>
+          <li>
+            <a href="#contato" class="nav-link" data-i18n="nav_contato">Contato</a>
+          </li>
+        </ul>
+        <div class="hidden md:flex md:flex-row items-center ml-0 md:ml-4 space-y-2 md:space-y-0 space-x-0 md:space-x-2 mt-4 md:mt-0">
+          <button class="lang-button text-sm font-bold px-3 py-1 rounded-md bg-[#118AB2] text-white hover:bg-[#06D6A0]" data-lang="pt">PT</button>
+          <button class="lang-button text-sm font-bold px-3 py-1 rounded-md bg-gray-200 text-gray-800 hover:bg-gray-300" data-lang="en">EN</button>
+          <button class="lang-button text-sm font-bold px-3 py-1 rounded-md bg-gray-200 text-gray-800 hover:bg-gray-300" data-lang="es">ES</button>
+        </div>
+        <button
+          id="theme-toggle"
+          class="hidden md:block ml-0 md:ml-4 text-[#e78341] hover:text-[#FF6B6B] focus:outline-none mt-4 md:mt-0"
+        >
+          <svg
+            id="theme-toggle-dark-icon"
+            class="w-6 h-6 hidden"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+            ></path>
+          </svg>
+          <svg
+            id="theme-toggle-light-icon"
+            class="w-6 h-6 hidden"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.121-3.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM4.95 14.536l-.707.707a1 1 0 101.414 1.414l.707-.707a1 1 0 10-1.414-1.414zM3.536 6.464a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM16 10a1 1 0 01-1-1h-1a1 1 0 110-2h1a1 1 0 011 1z"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <main class="container mx-auto p-4 md:p-8 px-4 md:px-32">
+      <header class="text-center my-16">
+        <h1 data-i18n="main_h1" class="text-5xl md:text-6xl font-extrabold mb-4">
+          Seu Piso Novo Gera um<br />Resíduo Perigoso
+        </h1>
+
+        <p data-i18n="main_p" class="text-xl md:text-2xl text-\[#118AB2] max-w-3xl mx-auto mt-16">
+          Entenda por que o pó do lixamento de epóxi e as sobras de tintas
+          exigem um descarte especializado e como fazê-lo corretamente.
+        </p>
+      </header>
+
+      <!-- Legislação -->
+
+      <section id="legislacao" class="mb-20 scroll-mt-24">
+        <h2 data-i18n="legislacao_h2" class="text-3xl font-bold text-center mb-10">
+          Conheça as Regras do Jogo
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+            <div class="legislation-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+                />
+              </svg>
+            </div>
+
+            <h3 data-i18n="legislacao_lei_h3" class="text-2xl font-bold mb-2">Lei 12.305/10 - PNRS</h3>
+
+            <p data-i18n="legislacao_lei_p">
+              A Política Nacional de Resíduos Sólidos define a
+              <strong>responsabilidade compartilhada</strong>. Geradores (sua
+              empresa), fabricantes e transportadores são todos responsáveis
+              pelo descarte correto, incentivando a reciclagem e a destinação
+              segura.
+            </p>
+            <p class="text-sm text-gray-500 mt-4">
+              Fonte: <a href="http://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#e78341]" data-i18n="source_click_here">Clique Aqui</a>
+            </p>
+          </div>
+
+          <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+            <div class="legislation-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                focusable="false"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
+
+            <h3 data-i18n="legislacao_nbr_h3" class="text-2xl font-bold mb-2">ABNT NBR 10.004:2024</h3>
+
+            <p data-i18n="legislacao_nbr_p">
+              A versão <strong>2024</strong> da norma simplificou a
+              classificação. Agora os resíduos são divididos em Perigosos
+              (Classe 1) e Não Perigosos (Classe 2). O pó de epóxi continua
+              sendo <strong>Classe 1 (Perigoso)</strong>, exigindo manejo
+              especializado.
+            </p>
+            <p class="text-sm text-gray-500 mt-4">
+              Fonte: <a href="https://www.abntcatalogo.com.br/" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#e78341]" data-i18n="source_click_here">Clique Aqui</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Perigos -->
+
+      <section id="perigos" class="mb-20 scroll-mt-24">
+        <h2 data-i18n="perigos_h2" class="text-3xl font-bold text-center mb-10">
+          O Perigo Invisível em Cada Partícula
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="text-6xl mb-4 text-\[#FF6B6B]" aria-hidden="true">
+              🫁
+            </div>
+
+            <h3 data-i18n="perigos_saude_h3" class="text-2xl font-bold mb-2">Danos à Saúde</h3>
+
+            <p data-i18n="perigos_saude_p">
+              A inalação do pó de epóxi pode causar doenças respiratórias
+              graves, enquanto o contato com a pele provoca dermatites e
+              alergias.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="text-6xl mb-4 text-\[#FF6B6B]" aria-hidden="true">
+              💧
+            </div>
+
+            <h3 data-i18n="perigos_ambiental_h3" class="text-2xl font-bold mb-2">Contaminação Ambiental</h3>
+
+            <p data-i18n="perigos_ambiental_p">
+              Descartados incorretamente, os químicos tóxicos infiltram no solo,
+              contaminam a água e prejudicam a fauna e a flora por décadas.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="text-6xl mb-4 text-\[#FF6B6B]" aria-hidden="true">
+              🔥
+            </div>
+
+            <h3 data-i18n="perigos_acidentes_h3" class="text-2xl font-bold mb-2">Risco de Acidentes</h3>
+
+            <p data-i18n="perigos_acidentes_p">
+              Solventes e primers são altamente inflamáveis, criando um sério
+              risco de incêndio e explosão se manuseados ou armazenados de forma
+              inadequada.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EPIs -->
+
+      <section id="protecao" class="mb-20 scroll-mt-24">
+        <h2 data-i18n="epis_h2" class="text-3xl font-bold text-center mb-4">
+          Proteção é Inegociável: NR-6 e EPIs Essenciais
+        </h2>
+
+        <p data-i18n="epis_p" class="text-lg text-center text-[#e78341] max-w-4xl mx-auto mb-4">
+          A Norma Regulamentadora 6 (NR-6) estabelece a obrigatoriedade do
+          fornecimento e uso de Equipamentos de Proteção Individual (EPIs) para
+          garantir a segurança do trabalhador. Contra os riscos do epóxi, estes
+          saão indispensáveis.
+        </p>
+        <p class="text-sm text-gray-500 mt-0 mb-4 text-center">
+          Fonte: <a href="https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-6-nr-6" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#e78341] link-fine-tune" data-i18n="source_click_here">Clique Aqui</a>
+        </p>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center"
+        >
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="epi-icon">
+              <img
+                src="assets/1_Respirador.png"
+                alt="Proteção Respiratória"
+                class="w-[250px] h-auto mx-auto mb-4"
+              />
+            </div>
+            <h3 data-i18n="epis_respiratoria_h3" class="text-xl font-bold mb-2">Proteção Respiratória</h3>
+            <p data-i18n="epis_respiratoria_p" class="text-sm mb-4">
+              Uso de respiradores com filtros para partículas químicas (PFF2)
+              para evitar a inalação do pó tóxico.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="epi-icon">
+              <img
+                src="assets/2_LuvasNitrilica.png"
+                alt="Proteção das Mãos"
+                class="w-[250px] h-auto mx-auto mb-4"
+              />
+            </div>
+            <h3 data-i18n="epis_maos_h3" class="text-xl font-bold mb-2">Proteção das Mãos</h3>
+            <p data-i18n="epis_maos_p" class="text-sm mb-4">
+              Luvas de segurança nitrílicas ou de PVC para proteger a pele
+              contra o contato direto com resinas e solventes.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="epi-icon">
+              <img
+                src="assets/3_Óculos.png"
+                alt="Proteção dos Olhos"
+                class="w-[250px] h-auto mx-auto mb-4"
+              />
+            </div>
+            <h3 data-i18n="epis_olhos_h3" class="text-xl font-bold mb-2">Proteção dos Olhos</h3>
+            <p data-i18n="epis_olhos_p" class="text-sm mb-4">
+              Óculos de segurança com proteção lateral para evitar que respingos
+              e partículas atinjam os olhos.
+            </p>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="epi-icon">
+              <img
+                src="assets/4_Vestimenta.png"
+                alt="Vestimenta de Proteção"
+                class="w-[250px] h-auto mx-auto mb-4"
+              />
+            </div>
+            <h3 data-i18n="epis_vestimenta_h3" class="text-xl font-bold mb-2">Vestimenta de Proteção</h3>
+            <p data-i18n="epis_vestimenta_p" class="text-sm mb-4">
+              Macacão de segurança ou roupas de manga comprida para proteger a
+              pele de todo o corpo contra respingos e contato.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Classificação -->
+
+      <section id="classificacao" class="mb-20 scroll-mt-24">
+        <h2 data-i18n="classificacao_h2" class="text-3xl font-bold text-center mb-4">
+          Classificação Atualizada: ABNT NBR 10.004:2024
+        </h2>
+
+        <p data-i18n="classificacao_p" class="text-lg text-center text-[#e78341] max-w-4xl mx-auto mb-12">
+          A nova norma simplificou o sistema. As subclasses II-A e II-B foram
+          extintas, resultando em uma classificação mais direta e alinhada a
+          padrões internacionais.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+          <!-- Classe 1 -->
+          <div class="bg-[#FF6B6B] p-6 rounded-lg shadow-md text-white">
+            <h3 data-i18n="classificacao_classe1_h3" class="text-3xl font-black mb-3">CLASSE 1</h3>
+            <h4 data-i18n="classificacao_classe1_h4" class="text-xl font-bold mb-4">Resíduos Perigosos (RP)</h4>
+            <p data-i18n="classificacao_classe1_p" class="text-lg font-medium">
+              Apresentam risco à saúde ou ao meio ambiente devido a
+              características como toxicidade, inflamabilidade ou
+              reatividade.<br />
+              <strong>Ex: Pó de epóxi, solventes, tintas.</strong>
+            </p>
+          </div>
+
+          <!-- Classe 2 -->
+          <div class="bg-[#82b158] p-6 rounded-lg shadow-md text-white">
+            <h3 data-i18n="classificacao_classe2_h3" class="text-3xl font-black mb-3">CLASSE 2</h3>
+            <h4 data-i18n="classificacao_classe2_h4" class="text-xl font-bold mb-4">Resíduos Não Perigosos (RNP)</h4>
+            <p data-i18n="classificacao_classe2_p" class="text-lg font-medium">
+              Não se enquadram como perigosos. Esta classe agora engloba todos
+              os resíduos que antes eram classificados como II-A ou II-B.<br />
+              <strong>Ex: Entulho limpo, gesso, lixo orgânico.</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ciclo de vida -->
+
+      <section id="ciclo-de-vida" class="mb-20 scroll-mt-24">
+        <h2 data-i18n="ciclo_de_vida_h2" class="text-3xl font-bold mb-8 text-center">
+          Ciclo de Vida do Resíduo Perigoso
+        </h2>
+        <div class="flex flex-col md:flex-row gap-4">
+          <!-- Botões das etapas (Desktop/Tablet) -->
+          <div class="hidden md:flex flex-col gap-2 w-full md:w-1/4">
+            <button
+              class="step-item px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full"
+              data-step="1"
+            >
+              1. Geração e Separação
+            </button>
+            <button
+              class="step-item px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full"
+              data-step="2"
+            >
+              2. Acondicionamento
+            </button>
+            <button
+              class="step-item px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full"
+              data-step="3"
+            >
+              3. Armazenamento
+            </button>
+            <button
+              class="step-item px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full"
+              data-step="4"
+            >
+              4. Transporte Licenciado
+            </button>
+            <button
+              class="step-item px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full"
+              data-step="5"
+            >
+              5. Destinação Final
+            </button>
+          </div>
+
+          <!-- Contêiner de conteúdo (Desktop/Tablet) -->
+          <div
+            id="step-content-container-desktop"
+            class="hidden md:flex flex-1 p-4 border rounded-md bg-gray-50 custom-center-container"
+          >
+            <!-- O conteúdo dinâmico será inserido aqui pelo script.js -->
+          </div>
+
+          <!-- Mobile/Tablet Layout -->
+          <div class="md:hidden flex flex-col gap-4 w-full">
+            <!-- Step 1 -->
+            <div class="step-mobile-item bg-white p-4 rounded-md shadow-md">
+              <button class="step-item-mobile px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full" data-step="1">
+                1. Geração e Separação
+              </button>
+              <div id="step-content-mobile-1" class="step-content-mobile hidden mt-4 p-4 border rounded-md bg-gray-50"></div>
+            </div>
+            <!-- Step 2 -->
+            <div class="step-mobile-item bg-white p-4 rounded-md shadow-md">
+              <button class="step-item-mobile px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full" data-step="2">
+                2. Acondicionamento
+              </button>
+              <div id="step-content-mobile-2" class="step-content-mobile hidden mt-4 p-4 border rounded-md bg-gray-50"></div>
+            </div>
+            <!-- Step 3 -->
+            <div class="step-mobile-item bg-white p-4 rounded-md shadow-md">
+              <button class="step-item-mobile px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full" data-step="3">
+                3. Armazenamento
+              </button>
+              <div id="step-content-mobile-3" class="step-content-mobile hidden mt-4 p-4 border rounded-md bg-gray-50"></div>
+            </div>
+            <!-- Step 4 -->
+            <div class="step-mobile-item bg-white p-4 rounded-md shadow-md">
+              <button class="step-item-mobile px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full" data-step="4">
+                4. Transporte Licenciado
+              </button>
+              <div id="step-content-mobile-4" class="step-content-mobile hidden mt-4 p-4 border rounded-md bg-gray-50"></div>
+            </div>
+            <!-- Step 5 -->
+            <div class="step-mobile-item bg-white p-4 rounded-md shadow-md">
+              <button class="step-item-mobile px-4 py-3 border rounded-md text-left focus:outline-none focus:ring focus:ring-[#118AB2] bg-white hover:bg-[#E6F7FF] transition-colors w-full" data-step="5">
+                5. Destinação Final
+              </button>
+              <div id="step-content-mobile-5" class="step-content-mobile hidden mt-4 p-4 border rounded-md bg-gray-50"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Destinação -->
+
+      <section id="destinacao" class="mb-20 scroll-mt-24">
+        <h2 data-i18n="destinacao_h2" class="text-3xl font-bold text-center mb-4">
+          Destinação Final: As Opções Corretas e Seguras
+        </h2>
+
+        <p data-i18n="destinacao_p" class="text-lg text-center text-[#e78341] max-w-4xl mx-auto mb-12">
+          Resíduos perigosos não podem ir para o lixo comum. Eles devem ser
+          processados em locais específicos para neutralizar seus riscos.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Coprocessamento -->
+          <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div class="w-13 h-13 mx-auto mb-4 overflow-hidden">
+              <img
+                src="assets/1_Coprocessamento.png"
+                alt="Indicador de coprocessamento"
+                class="w-full h-full object-contain transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+            <h3 data-i18n="destinacao_coprocessamento_h3" class="text-2xl font-bold mb-2">Coprocessamento</h3>
+            <p data-i18n="destinacao_coprocessamento_p">
+              O resíduo é utilizado como combustível em fornos de cimento, sendo
+              destruído de forma segura e reaproveitado energeticamente.
+            </p>
+          </div>
+
+          <!-- Incineração -->
+          <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div class="w-13 h-13 mx-auto mb-4 overflow-hidden">
+              <img
+                src="assets/2_Incineração.png"
+                alt="Indicador de incineração"
+                class="w-full h-full object-contain transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+            <h3 data-i18n="destinacao_incineracao_h3" class="text-2xl font-bold mb-2">Incineração</h3>
+            <p data-i18n="destinacao_incineracao_p">
+              Queima em altas temperaturas em instalações controladas,
+              destruindo os componentes tóxicos e reduzindo drasticamente o
+              volume do resíduo.
+            </p>
+          </div>
+
+          <!-- Aterro Classe I -->
+          <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div class="w-13 h-13 mx-auto mb-4 overflow-hidden">
+              <img
+                src="assets/3_AterroClasse1.png"
+                alt="Indicador de aterro classe I"
+                class="w-full h-full object-contain transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+            <h3 data-i18n="destinacao_aterro_h3" class="text-2xl font-bold mb-2">Aterro Classe I</h3>
+            <p data-i18n="destinacao_aterro_p">
+              Disposição em aterros industriais especialmente projetados para
+              resíduos perigosos, com sistemas que impedem a contaminação do
+              solo e da água.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gráficos -->
+      <section id="graficos" class="mb-20 scroll-mt-40">
+        <h2 data-i18n="graficos_h2" class="text-3xl font-bold text-center mb-4">
+          O Cenário Real da Destinação no Brasil
+        </h2>
+        <p data-i18n="graficos_p" class="text-lg text-center text-[#e78341] max-w-4xl mx-auto mb-12">
+          Apesar de existirem métodos seguros, a realidade brasileira é alarmante. A grande maioria dos resíduos perigosos ainda é descartada de forma irregular, contaminando o meio ambiente. Dentre as opções corretas, o coprocessamento se destaca por reaproveitar o resíduo como energia.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+          <!-- Descarte Incorreto Chart -->
+          <div class="bg-white p-6 rounded-lg shadow-lg border-4 border-red-500">
+            <h3 data-i18n="graficos_descarte_incorreto_h3" class="text-2xl font-bold mb-2 text-red-500">Descarte Incorreto</h3>
+            <div class="relative w-40 h-40 mx-auto">
+              <canvas id="incorreto-chart"></canvas>
+            </div>
+          </div>
+          <!-- Coprocessamento Chart -->
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 data-i18n="graficos_coprocessamento_h3" class="text-2xl font-bold mb-2">Coprocessamento</h3>
+            <div class="relative w-40 h-40 mx-auto">
+              <canvas id="coprocessamento-chart"></canvas>
+            </div>
+          </div>
+          <!-- Incineração Chart -->
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 data-i18n="graficos_incineracao_h3" class="text-2xl font-bold mb-2">Incineração</h3>
+            <div class="relative w-40 h-40 mx-auto">
+              <canvas id="incineracao-chart"></canvas>
+            </div>
+          </div>
+          <!-- Aterro Classe I Chart -->
+          <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 data-i18n="graficos_aterro_h3" class="text-2xl font-bold mb-2">Aterro Classe I</h3>
+            <div class="relative w-40 h-40 mx-auto">
+              <canvas id="aterro-chart"></canvas>
+            </div>
+          </div>
+        </div>
+        <p data-i18n="graficos_source_p" class="text-sm text-center text-gray-500 mt-8">
+          Fonte: Estimativa baseada em dados do <a href="https://abrema.org.br/panorama/" target="_blank" rel="noopener noreferrer" class="underline hover:text-[#e78341]">Panorama de Resíduos Sólidos no Brasil (ABREMA)</a>. A destinação correta representa apenas uma fração do total de resíduos perigosos gerados anualmente.
+        </p>
+      </section>
+
+      <section id="faq" class="py-16 bg-gray-50 scroll-mt-24">
+        <div class="container mx-auto px-4">
+            <h2 data-i18n="faq_h2" class="text-4xl font-bold text-center mb-12">Perguntas Frequentes (FAQ)</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="mb-4">
+                    <details class="bg-white shadow-md rounded-lg p-6 cursor-pointer">
+                        <summary data-i18n="faq_q1_h3" class="text-xl font-semibold text-[#e78341]">O que são resíduos de epóxi?</summary>
+                        <p data-i18n="faq_q1_p" class="mt-4 text-gray-700 text-justify">Resíduos de epóxi são materiais gerados durante a aplicação e remoção de revestimentos epóxi, como pó de lixamento, sobras de tintas, solventes e embalagens contaminadas. Devido à sua composição química, são classificados como resíduos perigosos.</p>
+                    </details>
+                </div>
+                <div class="mb-4">
+                    <details class="bg-white shadow-md rounded-lg p-6 cursor-pointer">
+                        <summary data-i18n="faq_q2_h3" class="text-xl font-semibold text-[#e78341]">Por que o descarte de resíduos de epóxi é perigoso?</summary>
+                        <p data-i18n="faq_q2_p" class="mt-4 text-gray-700 text-justify">O descarte incorreto pode causar contaminação do solo e da água, além de riscos à saúde humana devido à presença de substâncias tóxicas. Eles são classificados como Resíduos Perigosos (Classe I) pela ABNT NBR 10.004.</p>
+                    </details>
+                </div>
+                <div class="mb-4">
+                    <details class="bg-white shadow-md rounded-lg p-6 cursor-pointer">
+                        <summary data-i18n="faq_q3_h3" class="text-xl font-semibold text-[#e78341]">Como devo armazenar os resíduos de epóxi antes do descarte?</summary>
+                        <p data-i18n="faq_q3_p" class="mt-4 text-gray-700 text-justify">Devem ser armazenados em recipientes fechados, identificados e em local seguro, longe de fontes de calor e umidade, para evitar vazamentos e contaminação. Siga as diretrizes da NR-6 para uso de EPIs.</p>
+                    </details>
+                </div>
+                <div class="mb-4">
+                    <details class="bg-white shadow-md rounded-lg p-6 cursor-pointer">
+                        <summary data-i18n="faq_q4_h3" class="text-xl font-semibold text-[#e78341]">Quais são as opções de descarte final para resíduos de epóxi?</summary>
+                        <p data-i18n="faq_q4_p" class="mt-4 text-gray-700 text-justify">As opções seguras incluem coprocessamento (utilização como combustível em fornos industriais), incineração em instalações licenciadas e aterro industrial Classe I, que é projetado para resíduos perigosos.</p>
+                    </details>
+                </div>
+                <div>
+                    <details class="bg-white shadow-md rounded-lg p-6 cursor-pointer">
+                        <summary data-i18n="faq_q5_h3" class="text-xl font-semibold text-[#e78341]">A legislação brasileira classifica resíduos de epóxi como perigosos?</summary>
+                        <p data-i18n="faq_q5_p" class="mt-4 text-gray-700 text-justify">Sim, a Lei 12.305/10 (Política Nacional de Resíduos Sólidos - PNRS) e a norma técnica ABNT NBR 10.004:2024 classificam resíduos de epóxi como perigosos (Classe I), exigindo manejo e descarte específicos.</p>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Contato -->
+      <section id="contato" class="py-12 bg-gray-100 scroll-mt-24">
+        <div class="container mx-auto px-4 text-center">
+          <h2 class="text-3xl font-bold mb-8">Fale Conosco</h2>
+          <p class="text-base text-gray-600 mb-6 max-w-xl mx-auto">
+            Precisa de ajuda ou tem alguma dúvida? Preencha o formulário e nossa equipe responderá em breve.
+          </p>
+
+          <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <form action="YOUR_FORMSPREE_URL" method="POST" class="space-y-4">
+              <div>
+                <label for="name" class="sr-only">Nome:</label>
+                <input type="text" id="name" name="name" placeholder="Seu Nome" required class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+              <div>
+                <label for="email" class="sr-only">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Seu Email" required class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+              </div>
+              <div>
+                <label for="message" class="sr-only">Mensagem:</label>
+                <textarea id="message" name="message" rows="4" placeholder="Sua Mensagem" required class="shadow-sm appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+              </div>
+              <button type="submit" class="bg-[#82b158] hover:bg-[#e78341] text-white font-bold py-2 px-5 rounded-md focus:outline-none focus:shadow-outline transition-colors duration-300">Enviar</button>
+            </form>
+
+            <div class="mt-6 border-t pt-4">
+              <p class="text-base text-gray-600">
+                Ou entre em contato por email <a href="mailto:eduardo.bezerra@ehsprevention.com.br" class="text-[#e68342] hover:underline">eduardo.bezerra@ehsprevention.com.br</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="text-center border-t-2 border-\[#118AB2] pt-8">
+        <h3 data-i18n="footer_h3" class="text-2xl font-bold">
+          A Responsabilidade é de Quem Gera o Resíduo.
+        </h3>
+
+        <p data-i18n="footer_p1" class="text-lg text-\[#118AB2] mt-2">
+          Cumprir a legislação, como a Política Nacional de Resíduos Sólidos
+          (Lei 12.305/10), protege sua empresa, a saúde pública e o futuro do
+          nosso planeta. Faça o descarte correto.
+        </p>
+
+        <p data-i18n="footer_p2" class="text-sm text-slate-500 max-w-3xl mx-auto">
+            <strong>Atenção:</strong> Este guia é um material de estudo e não
+            substitui a consulta profissional. Para realizar o gerenciamento de
+            resíduos perigosos, é fundamental seguir a legislação vigente e as
+            normas técnicas aplicáveis. Sempre procure a orientação de um
+            profissional qualificado.
+          </p>
+          <div class="mt-8">
+            <button id="download-pdf-button" class="bg-[#82b158] text-white font-bold py-2 px-4 rounded hover:bg-[#e78341] transition-colors">
+              Baixar Guia em PDF
+            </button>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script src="js/translations.js"></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/pdf-generator.js" defer></script>
+  </body>
+</html>
+
+<!-- Mobile Navigation Overlay -->
+<div id="mobile-nav" class="fixed bg-white z-50 flex-col items-center justify-center md:hidden">
+  <button id="close-mobile-nav" class="absolute top-4 right-4 focus:outline-none">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+  <ul class="flex flex-col gap-2 text-center text-xl">
+    <li><a href="#legislacao" class="nav-link-mobile" data-i18n="nav_legislacao">Legislação</a></li>
+    <li><a href="#perigos" class="nav-link-mobile" data-i18n="nav_perigos">Os Perigos</a></li>
+    <li><a href="#protecao" class="nav-link-mobile" data-i18n="nav_protecao">Proteção / EPIs</a></li>
+    <li><a href="#classificacao" class="nav-link-mobile" data-i18n="nav_classificacao">Classificação</a></li>
+    <li><a href="#ciclo-de-vida" class="nav-link-mobile" data-i18n="nav_ciclo_de_vida">Ciclo de Vida</a></li>
+    <li><a href="#destinacao" class="nav-link-mobile" data-i18n="nav_destinacao">Destinação Final</a></li>
+    <li><a href="#graficos" class="nav-link-mobile" data-i18n="nav_graficos">Gráficos</a></li>
+    <li><a href="#faq" class="nav-link-mobile" data-i18n="nav_faq">FAQ</a></li>
+    <li><a href="#contato" class="nav-link-mobile" data-i18n="nav_contato">Contato</a></li>
+  </ul>
+  <div class="flex flex-col items-center space-y-4 mt-8">
+    <div class="flex space-x-2 justify-center">
+      <button class="lang-button text-lg font-bold px-4 py-2 rounded-md bg-[#118AB2] text-white hover:bg-[#06D6A0]" data-lang="pt">PT</button>
+      <button class="lang-button text-lg font-bold px-4 py-2 rounded-md bg-gray-200 text-gray-800 hover:bg-gray-300" data-lang="en">EN</button>
+      <button class="lang-button text-lg font-bold px-4 py-2 rounded-md bg-gray-200 text-gray-800 hover:bg-gray-300" data-lang="es">ES</button>
+      <button
+        id="theme-toggle-mobile"
+        class="text-[#e78341] hover:text-[#FF6B6B] focus:outline-none text-lg"
+      >
+        <svg
+          id="theme-toggle-dark-icon-mobile"
+          class="w-8 h-8 hidden"
+          fill="currentColor"
+          viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+          ></path>
+        </svg>
+        <svg
+          id="theme-toggle-light-icon-mobile"
+          class="w-8 h-8 hidden"
+          fill="currentColor"
+          viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.121-3.536a1 1 0 010 1.414l-.707.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zM4.95 14.536l-.707.707a1 1 0 101.414 1.414l.707-.707a1 1 0 10-1.414-1.414zM3.536 6.464a1 1 0 010-1.414l.707-.707a1 1 0 111.414 1.414l-.707.707a1 1 0 01-1.414 0zM16 10a1 1 0 01-1-1h-1a1 1 0 110-2h1a1 1 0 011 1z"
+          ></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
